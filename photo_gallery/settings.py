@@ -24,6 +24,14 @@ DEBUG = True
 
 TEMPLATE_DEBUG = True
 
+TEMPLATE_DIRS = (
+    BASE_DIR + '/templates/'
+)
+
+ROOT_URL = '/'
+
+LOGIN_REDIRECT_URL = ROOT_URL
+
 ALLOWED_HOSTS = []
 
 
@@ -71,7 +79,7 @@ DATABASES = {
 # Internationalization
 # https://docs.djangoproject.com/en/1.6/topics/i18n/
 
-LANGUAGE_CODE = 'en-us'
+LANGUAGE_CODE = 'ru_RU'
 
 TIME_ZONE = 'UTC'
 

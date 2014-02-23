@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>{% block title %}{% endblock %}</title>
+    </head>
+
+    <body>
+    <!-- header -->
+    {% block login %} 
+        {% if user.is_anonymous %}
+            <a data-role="button" href="{% url 'login' %}">Войти</a>
+            <a data-role="button" href="{% url 'register' %}">Зарегистрироваться</a>
+        {% else %}
+            {{ user.username }}
+            <a data-role="button" href="{% url 'logout' %}">Выйти</a>
+        {% endif %}
+    {% endblock %}
+    <!-- end header -->
+
+    <!-- messages -->
+    {% if messages %}
+        <ul class="messages">
+            {% for message in messages %}
+            <li{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>
+            {% endfor %}
+        </ul>
+    {% endif %}
+    <!-- end messages -->
+
+    {% block content %}{% endblock %}
+    </body>
+</html>
