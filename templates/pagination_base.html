@@ -1,0 +1,15 @@
+{% extends 'base.html' %}
+
+{% block pagination %}
+    <div>
+        <span>
+            {% if objects.has_previous %}
+                <a href="?page={{ objects.previous_page_number }}">Предыдущая</a>
+            {% endif %}
+                <span>Страница {{ objects.number }} из {{ objects.paginator.num_pages }}</span>
+            {% if objects.has_next %}
+                <a href="?page={{ objects.next_page_number }}">Следующая</a>
+            {% endif %}
+        </span>
+    </div>
+{% endblock %}

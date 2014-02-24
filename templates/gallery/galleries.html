@@ -1,0 +1,11 @@
+{% extends 'pagination_base.html' %}
+
+{% block content %}
+{% if objects %}
+    <ul>
+        {% for gallery in objects %}
+        <li><a href="{% url 'gallery' gallery.owner.pk gallery.id %}">{{ gallery.title }}</a></li>
+        {% endfor %}
+    </ul>
+{% endif %}
+{% endblock %}
