@@ -10,6 +10,7 @@ class Gallery(models.Model):
 
     class Meta:
         unique_together = ('owner', 'title')
+        ordering = ['-creation_date']
 
 
 class Photo(models.Model):
