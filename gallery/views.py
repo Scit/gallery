@@ -2,12 +2,11 @@ from django.shortcuts import render
 from django.http import Http404, HttpResponse
 from django.contrib.auth.models import User
 from django.conf import settings
-from gallery.models import Gallery
+from gallery.models import Gallery, Photo
 from gallery.utils import paginate
 
 
 def index(request):
-    print "index"
     all_galleries = Gallery.objects.all()
     paginator = paginate(request, all_galleries, count=settings.GALLERIES_ON_PAGE)
     context = {'objects': paginator}
@@ -15,7 +14,6 @@ def index(request):
 
 
 def owner(request, owner_id):
-    print "owner"
     try:
         owner = User.objects.get(pk=owner_id)
     except User.DoesNotExist:
@@ -28,4 +26,22 @@ def owner(request, owner_id):
 
 
 def gallery(request, gallery_id):
-    return HttpResponse('%s' % gallery_id)
+    try:
+        gallery = Gallery.objects.get(pk=gallery_id)
+    except Gallery.DoesNotExist:
+        raise Http404
+
+    gallerys_photos = Photo.objects.filter(gallery=gallery)
+    paginator = paginate(request, gallerys_photos, count=settings.PHOTOS_ON_PAGE)
+    context = {'objects': paginator}
+    return render(request, 'gallery/gallery.html', context)
+
+
+def photo(request, photo_id):
+    try:
+        photo = Photo.objects.get(pk=photo_id)
+    except Photo.DoesNotExist:
+        raise Http404
+
+    context = {'photo': photo}
+    return render(request, 'gallery/photo.html', context)

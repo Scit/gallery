@@ -4,7 +4,9 @@
 {% if objects %}
     <ul>
         {% for gallery in objects %}
-        <li><a href="{% url 'gallery' gallery.owner.pk gallery.id %}">{{ gallery.title }}</a></li>
+        <li>
+        <a href="{% url 'gallery' gallery.owner.pk gallery.id %}">{{ gallery.title }}</a>
+        </li>
         {% endfor %}
     </ul>
 {% endif %}

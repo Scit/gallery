@@ -25,10 +25,13 @@ DEBUG = True
 TEMPLATE_DEBUG = True
 
 TEMPLATE_DIRS = (
-    BASE_DIR + '/templates/'
+    os.path.join(BASE_DIR, 'templates')
 )
 
 ROOT_URL = '/'
+
+MEDIA_ROOT = os.path.join(BASE_DIR, 'uploads')
+MEDIA_URL = '/media/'
 
 LOGIN_REDIRECT_URL = ROOT_URL
 
@@ -96,3 +99,10 @@ USE_TZ = True
 STATIC_URL = '/static/'
 
 GALLERIES_ON_PAGE = 2
+PHOTOS_ON_PAGE = 4
+
+PHOTOS_MEDIA_ROOT = 'photos'
+THUMBNAILS_MEDIA_ROOT = 'thumbnails'
+
+THUMBNAILS_SMALL_SIZE = (100, 100)
+THUMBNAILS_LARGE_SIZE = (500, 500)

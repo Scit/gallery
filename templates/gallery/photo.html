@@ -1,0 +1,9 @@
+{% extends 'base.html' %}
+
+{% block content %}
+{% if photo %}
+    {{ photo.title }}
+    <img src="{{ MEDIA_URL }}{{ photo.thumbnail_large }}"></img>
+    {{ photo.description }}
+{% endif %}
+{% endblock %}

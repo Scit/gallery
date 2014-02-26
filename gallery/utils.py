@@ -1,16 +1,20 @@
 import os
+from django.conf import settings
 from django.core.paginator import Paginator, EmptyPage, InvalidPage
 
 
-def get_upload_path(instance, filename):
-    #return u'photos/%s_%s/%s' % (instance.gallery.owner.username,
-            #instance.gallery.title, filename)
-    return os.path.join('photos', 
-                        '%s_%s' % (instance.gallery.owner.username,
-                                   instance.gallery.title),
-                        filename)
+def get_photos_path(instance, filename):
+    return os.path.join(settings.PHOTOS_MEDIA_ROOT,
+            '%s_%s' % (instance.gallery.owner.pk,
+            instance.gallery.pk), filename)
 
 
+def get_thumbnails_path(instance, filename):
+    return os.path.join(settings.THUMBNAILS_MEDIA_ROOT,
+            '%s_%s' % (instance.gallery.owner.pk,
+            instance.gallery.pk), filename)
+
+            
 def paginate(request, objects, count=10, param_name='page'):
     paginator = Paginator(objects, count)
 

@@ -1,0 +1,16 @@
+{% extends 'pagination_base.html' %}
+
+{% block content %}
+{% if objects %}
+    <ul>
+        {% for photo in objects %}
+        <li>
+        {{ photo.title }}
+        <a href="{% url 'photo' photo.gallery.owner.pk photo.gallery.pk photo.pk %}">
+        <img src="{{MEDIA_URL}}{{ photo.thumbnail_small }}" alt="">
+        </a>
+        </li>
+        {% endfor %}
+    </ul>
+{% endif %}
+{% endblock %}
