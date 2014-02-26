@@ -24,6 +24,9 @@ class Photo(models.Model):
     thumbnail_large = models.ImageField(upload_to=get_thumbnails_path, editable=False)
     thumbnail_small = models.ImageField(upload_to=get_thumbnails_path, editable=False)
 
+    class Meta:
+        ordering = ['-pk']
+
     title = models.CharField(max_length=100)
     description = models.CharField(max_length=100)
     gallery = models.ForeignKey(Gallery, related_name='photos')

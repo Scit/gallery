@@ -6,4 +6,5 @@ urlpatterns = patterns('',
     url(r'^(?P<owner_id>\d+)/$', 'gallery.views.owner', name='owner'),
     url(r'^(\d+)/gallery_(?P<gallery_id>\d+)/$', 'gallery.views.gallery', name='gallery'),
     url(r'^(\d+)/gallery_(\d+)/photo_(?P<photo_id>\d+)/$', 'gallery.views.photo', name='photo'),
+    url(r'^comments/', include('django.contrib.comments.urls')),
 )

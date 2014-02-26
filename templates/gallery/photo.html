@@ -1,9 +1,17 @@
 {% extends 'base.html' %}
 
+{% load comments %}
+
 {% block content %}
 {% if photo %}
-    {{ photo.title }}
+    <p>{{ photo.title }}</p>
     <img src="{{ MEDIA_URL }}{{ photo.thumbnail_large }}"></img>
-    {{ photo.description }}
+    <p>{{ photo.description }}</p>
+
+    {% get_comment_count for photo as comments_count %}
+    <p>Комментариев: {{ comments_count }}</p>
+
+    {% render_comment_form for photo %}
+    {% render_comment_list for photo %}
 {% endif %}
 {% endblock %}
