@@ -1,8 +1,12 @@
+import datetime
+
+from django.core.urlresolvers import reverse
 from django.shortcuts import render
-from django.http import Http404, HttpResponse
+from django.http import Http404, HttpResponse, HttpResponseRedirect
 from django.contrib.auth.models import User
 from django.conf import settings
 from gallery.models import Gallery, Photo
+from gallery.forms import GalleryForm
 from gallery.utils import paginate, ownership_required
 
 
@@ -41,8 +45,20 @@ def gallery(request, *args, **kwargs):
 
 
 @ownership_required
-def gallery_add(request, *args, **kwargs):
-    return HttpResponse('ok')
+def gallery_edit(request, *args, **kwargs):
+    if request.POST:
+        gallery = Gallery(owner=request.user, creation_date=datetime.datetime.now())
+        form = GalleryForm(request.POST, instance=gallery)
+        if form.is_valid():
+            form.save()
+
+            redirect_url = reverse(owner, args=(request.user.pk,))
+            return HttpResponseRedirect(redirect_url)
+    else:
+        form = GalleryForm()
+
+    context = {'form': form}
+    return render(request, 'gallery/gallery_edit.html', context)
 
 
 def photo(request, *args, **kwargs):
