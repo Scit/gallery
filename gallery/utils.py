@@ -1,6 +1,7 @@
 import os
 from django.conf import settings
 from django.core.paginator import Paginator, EmptyPage, InvalidPage
+from django.core.exceptions import PermissionDenied
 
 
 def get_photos_path(instance, filename):
@@ -29,3 +30,14 @@ def paginate(request, objects, count=10, param_name='page'):
         result = paginator.page(paginator.num_pages)
 
     return result
+
+
+def ownership_required(view):
+    def wrapped_view(request, *args, **kwargs):
+        if request.owner:
+            #result = view(request, *args, **kwargs)
+            return view(request)
+        else:
+            raise PermissionDenied
+
+    return wrapped_view

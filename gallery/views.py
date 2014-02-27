@@ -3,7 +3,7 @@ from django.http import Http404, HttpResponse
 from django.contrib.auth.models import User
 from django.conf import settings
 from gallery.models import Gallery, Photo
-from gallery.utils import paginate
+from gallery.utils import paginate, ownership_required
 
 
 def index(request):
@@ -13,7 +13,9 @@ def index(request):
     return render(request, 'gallery/galleries.html', context)
 
 
-def owner(request, owner_id):
+def owner(request, *args, **kwargs):
+    owner_id = kwargs.get('owner_id', None)
+
     try:
         owner = User.objects.get(pk=owner_id)
     except User.DoesNotExist:
@@ -25,7 +27,8 @@ def owner(request, owner_id):
     return render(request, 'gallery/galleries.html', context)
 
 
-def gallery(request, gallery_id):
+def gallery(request, *args, **kwargs):
+    gallery_id = kwargs.get('gallery_id', None)
     try:
         gallery = Gallery.objects.get(pk=gallery_id)
     except Gallery.DoesNotExist:
@@ -37,7 +40,13 @@ def gallery(request, gallery_id):
     return render(request, 'gallery/gallery.html', context)
 
 
-def photo(request, photo_id):
+@ownership_required
+def gallery_add(request, *args, **kwargs):
+    return HttpResponse('ok')
+
+
+def photo(request, *args, **kwargs):
+    photo_id = kwargs.get('photo_id', None)
     try:
         photo = Photo.objects.get(pk=photo_id)
     except Photo.DoesNotExist:
