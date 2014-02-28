@@ -6,7 +6,7 @@ from django.http import Http404, HttpResponse, HttpResponseRedirect
 from django.contrib.auth.models import User
 from django.conf import settings
 from gallery.models import Gallery, Photo
-from gallery.forms import GalleryForm
+from gallery.forms import GalleryForm, PhotoForm
 from gallery.utils import paginate, ownership_required
 
 
@@ -47,18 +47,41 @@ def gallery(request, *args, **kwargs):
 @ownership_required
 def gallery_edit(request, *args, **kwargs):
     if request.POST:
-        gallery = Gallery(owner=request.user, creation_date=datetime.datetime.now())
+        owner_id = kwargs.get('owner_id', None)
+
+        gallery = Gallery(owner=owner_id, creation_date=datetime.datetime.now())
         form = GalleryForm(request.POST, instance=gallery)
         if form.is_valid():
             form.save()
 
-            redirect_url = reverse(owner, args=(request.user.pk,))
+            redirect_url = reverse(owner, args=(owner_id,))
             return HttpResponseRedirect(redirect_url)
     else:
         form = GalleryForm()
 
     context = {'form': form}
     return render(request, 'gallery/gallery_edit.html', context)
+
+
+@ownership_required
+def photo_edit(request, *args, **kwargs):
+    if request.POST:
+        owner_id = kwargs.get('owner_id', None)
+        gallery_id = kwargs.get('gallery_id', None)
+
+        photo = Photo(gallery=gallery_id)
+        form = PhotoForm(request.POST, instance=photo)
+
+        if form.is_valid():
+            form.save()
+
+            redirect_url = reverse(gallery, args(owner_id, gallery_id))
+            return HttpResponseRedirect(redirect_url)
+    else:
+        form = PhotoForm()
+
+    context = {'form': form}
+    return render(request, 'gallery/photo_edit.html', context)
 
 
 def photo(request, *args, **kwargs):

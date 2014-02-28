@@ -35,8 +35,7 @@ def paginate(request, objects, count=10, param_name='page'):
 def ownership_required(view):
     def wrapped_view(request, *args, **kwargs):
         if request.owner:
-            #result = view(request, *args, **kwargs)
-            return view(request)
+            return view(request, *args, **kwargs)
         else:
             raise PermissionDenied
 
