@@ -4,7 +4,7 @@ class OwnerMiddleware(object):
 
         owner_id = kwargs.get('owner_id', None)
 
-        if int(owner_id) == request.user.pk:
+        if owner_id is not None and int(owner_id) == request.user.pk:
             request.owner = True
 
         return None
