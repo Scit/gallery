@@ -8,8 +8,11 @@ urlpatterns = patterns('',
 
     url(r'^(?P<owner_id>\d+)/gallery_(?P<gallery_id>\d+)/$', 'gallery.views.gallery', name='gallery'),
     url(r'^(?P<owner_id>\d+)/gallery_(?P<gallery_id>\d+)/add/$', 'gallery.views.photo_edit', name='photo_edit'),
+    url(r'^(?P<owner_id>\d+)/gallery_(?P<gallery_id>\d+)/delete/$', 'gallery.views.object_delete', name='object_delete'),
 
     url(r'^(?P<owner_id>\d+)/gallery_(?P<gallery_id>\d+)/photo_(?P<photo_id>\d+)/$', 'gallery.views.photo', name='photo'),
+    url(r'^(?P<owner_id>\d+)/gallery_(?P<gallery_id>\d+)/photo_(?P<photo_id>\d+)/edit/$', 'gallery.views.photo_edit', name='photo_edit'),
+    url(r'^(?P<owner_id>\d+)/gallery_(?P<gallery_id>\d+)/photo_(?P<photo_id>\d+)/delete/$', 'gallery.views.object_delete', name='object_delete'),
 
     url(r'^comments/', include('django.contrib.comments.urls')),
 )
