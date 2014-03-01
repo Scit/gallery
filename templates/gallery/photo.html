@@ -7,12 +7,6 @@
     <p>{{ photo.title }}</p>
     <img src="{{ MEDIA_URL }}{{ photo.thumbnail_large }}"></img>
     <p>{{ photo.description }}</p>
-
-    {% get_comment_count for photo as comments_count %}
-    <p>Комментариев: {{ comments_count }}</p>
-
-    {% render_comment_form for photo %}
-    {% render_comment_list for photo %}
 {% endif %}
 {% endblock %}
 
@@ -23,3 +17,12 @@
 {% endif %}
 {% endblock %}
 
+{% block comments %}
+{% if photo %}
+    {% get_comment_count for photo as comments_count %}
+    <p>Комментариев: {{ comments_count }}</p>
+
+    {% render_comment_form for photo %}
+    {% render_comment_list for photo %}
+{% endif %}
+{% endblock %}

@@ -1,6 +1,12 @@
 {% extends 'base.html' %}
 
 {% block content %}
+{% if edit %}
+<p>
+<img src="{{ MEDIA_URL }}{{photo.thumbnail_large}}"></img>
+</p>
+{% endif %}
+
 <form method="post" action="" enctype="multipart/form-data">
     {% csrf_token %}
     {{ form.as_p }}

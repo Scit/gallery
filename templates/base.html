@@ -7,11 +7,12 @@
     <body>
     <!-- header -->
     {% block login %} 
+        <a href="{{ request.current_path.parent }}">Назад</a>
         {% if user.is_anonymous %}
             <a data-role="button" href="{% url 'login' %}">Войти</a>
             <a data-role="button" href="{% url 'register' %}">Зарегистрироваться</a>
         {% else %}
-            {{ user.username }}
+        <a href="{% url 'owner' request.user.pk %}">{{ user.username }}</a>
             <a data-role="button" href="{% url 'logout' %}">Выйти</a>
         {% endif %}
     {% endblock %}
@@ -30,5 +31,6 @@
     {% block content %}{% endblock %}
     {% block pagination %}{% endblock %}
     {% block edit_panel %}{% endblock %}
+    {% block comments %}{% endblock %}
     </body>
 </html>

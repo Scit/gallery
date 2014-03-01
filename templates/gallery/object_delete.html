@@ -1,10 +1,7 @@
 {% extends 'base.html' %}
 
 {% block content %}
-<h1>Вы уверены?</h1>
-{% if notification %}
-    <p>{{notification}}</p>
-{% endif %}
+<p>Вы уверены?</p>
 <form method="post" action="">
     {% csrf_token %}
     <input type="submit" value="Удалить" />

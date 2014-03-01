@@ -5,6 +5,7 @@ from django.core.urlresolvers import reverse
 from django.shortcuts import render, get_object_or_404
 from django.http import Http404, HttpResponse, HttpResponseRedirect
 from django.contrib.auth.models import User
+from django.contrib import messages
 from django.conf import settings
 from gallery.models import Gallery, Photo
 from gallery.forms import GalleryForm, PhotoForm
@@ -103,7 +104,7 @@ def photo_edit(request, *args, **kwargs):
     else:
         form = PhotoForm(instance=photo, edit=edit)
 
-    context = {'form': form}
+    context = {'form': form, 'edit': edit, 'photo': photo}
     return render(request, 'gallery/photo_edit.html', context)
 
 
@@ -114,9 +115,9 @@ def object_delete(request, *args, **kwargs):
     photo_id = kwargs.get('photo_id', None)
 
     if photo_id:
-        context = {'notification': u'Удаление фотографии %s' % photo_id}
+        messages.warning(request, u'Удаление фотографии %s' % photo_id)
     elif gallery_id:
-        context = {'notification': u'Удаление галереи %s' % gallery_id}
+        messages.warning(request, u'Удаление галереи %s' % gallery_id)
 
     if request.POST:
         if photo_id:
@@ -131,4 +132,4 @@ def object_delete(request, *args, **kwargs):
             return HttpResponseRedirect(redirect_url)
 
     else:
-        return render(request, 'gallery/object_delete.html', context)
+        return render(request, 'gallery/object_delete.html')
