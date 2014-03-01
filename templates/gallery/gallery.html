@@ -14,3 +14,10 @@
     </ul>
 {% endif %}
 {% endblock %}
+
+{% block edit_panel %}
+{% if request.owner %}
+<a href="{% url 'photo_add' request.user.pk gallery_id %}">Добавить фотографию</a>
+<a href="{% url 'object_delete' request.user.pk gallery_id %}">Удалить галерею</a>
+{% endif %}
+{% endblock %}

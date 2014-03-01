@@ -28,5 +28,5 @@ class PhotoForm(ModelForm):
         edit = kwargs.pop('edit', False)
         super(PhotoForm, self).__init__(*args, **kwargs)
 
-        if edit:
-            del self.fields['image']
+        #if edit:
+            #del self.fields['image']

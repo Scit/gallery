@@ -15,3 +15,11 @@
     {% render_comment_list for photo %}
 {% endif %}
 {% endblock %}
+
+{% block edit_panel %}
+{% if request.owner %}
+<a href="{% url 'photo_edit' request.user.pk photo.gallery.pk photo.pk %}">Редактировать описание</a>
+<a href="{% url 'object_delete' request.user.pk photo.gallery.pk photo.pk %}">Удалить</a>
+{% endif %}
+{% endblock %}
+

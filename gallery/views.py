@@ -28,7 +28,8 @@ def owner(request, *args, **kwargs):
 
     owners_galleries = Gallery.objects.filter(owner=owner)
     paginator = paginate(request, owners_galleries, count=settings.GALLERIES_ON_PAGE)
-    context = {'objects': paginator}
+    context = {'objects': paginator,
+               'owner_id': owner_id}
     return render(request, 'gallery/galleries.html', context)
 
 
@@ -41,7 +42,8 @@ def gallery(request, *args, **kwargs):
 
     gallerys_photos = Photo.objects.filter(gallery=gallery)
     paginator = paginate(request, gallerys_photos, count=settings.PHOTOS_ON_PAGE)
-    context = {'objects': paginator}
+    context = {'objects': paginator,
+               'gallery_id': gallery_id}
     return render(request, 'gallery/gallery.html', context)
 
 

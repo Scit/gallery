@@ -11,3 +11,9 @@
     </ul>
 {% endif %}
 {% endblock %}
+
+{% block edit_panel %}
+{% if request.owner %}
+<a href="{% url 'gallery_edit' request.user.pk %}">Создать галерею</a>
+{% endif %}
+{% endblock %}
