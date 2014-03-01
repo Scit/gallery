@@ -1,5 +1,6 @@
 # coding: utf-8
 from django.shortcuts import render
+from django.core.urlresolvers import reverse
 from django.http import HttpResponseRedirect
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth import authenticate, login
@@ -17,7 +18,7 @@ def register(request):
                                     password=form.cleaned_data['password1'])
 
             login(request, new_user)
-            return HttpResponseRedirect(settings.ROOT_URL)
+            return HttpResponseRedirect(reverse('owner', args=(new_user.pk,)))
     else:
         form = UserCreationForm()
 

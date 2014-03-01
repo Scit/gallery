@@ -7,7 +7,7 @@
     <body>
     <!-- header -->
     {% block login %} 
-        <a href="{{ request.current_path.parent }}">Назад</a>
+        <a href="{{ request.parent_path }}">Назад</a>
         {% if user.is_anonymous %}
             <a data-role="button" href="{% url 'login' %}">Войти</a>
             <a data-role="button" href="{% url 'register' %}">Зарегистрироваться</a>

@@ -1,3 +1,6 @@
+import os
+
+
 class OwnerMiddleware(object):
     def process_view(self, request, view_func, args, kwargs):
         request.owner = False
@@ -10,12 +13,10 @@ class OwnerMiddleware(object):
         return None
 
 
-class LastVisitedMiddleware(object):
+class ParentUrlMiddleware(object):
     def process_request(self, request):
         request_path = request.get_full_path()
-        try:
-            request.session['last_visited'] = request.session['currently_visiting']
-        except KeyError:
-            pass
+        parent_path = os.path.abspath(os.path.join(request_path, os.pardir))
+        request.parent_path = parent_path
 
-        request.session['currently_visiting'] = request_path
+        return None

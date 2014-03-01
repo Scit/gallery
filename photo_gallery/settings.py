@@ -74,7 +74,7 @@ MIDDLEWARE_CLASSES = (
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
     'gallery.middleware.OwnerMiddleware',
-    'gallery.middleware.LastVisitedMiddleware',
+    'gallery.middleware.ParentUrlMiddleware',
 )
 
 ROOT_URLCONF = 'photo_gallery.urls'
