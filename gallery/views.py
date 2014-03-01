@@ -94,7 +94,7 @@ def photo_edit(request, *args, **kwargs):
         photo = Photo(gallery=gallery)
 
     if request.POST:
-        form = PhotoForm(request.POST, instance=photo, edit=edit)
+        form = PhotoForm(request.POST, request.FILES, instance=photo, edit=edit)
         if form.is_valid():
             form.save()
 
