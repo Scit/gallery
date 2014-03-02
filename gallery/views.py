@@ -114,11 +114,6 @@ def object_delete(request, *args, **kwargs):
     gallery_id = kwargs.get('gallery_id', None)
     photo_id = kwargs.get('photo_id', None)
 
-    if photo_id:
-        messages.warning(request, u'Удаление фотографии %s' % photo_id)
-    elif gallery_id:
-        messages.warning(request, u'Удаление галереи %s' % gallery_id)
-
     if request.POST:
         if photo_id:
             Photo.objects.get(pk=photo_id).delete()
