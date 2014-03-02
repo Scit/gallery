@@ -36,23 +36,22 @@ class Photo(models.Model):
         from cStringIO import StringIO
         from django.core.files.uploadedfile import SimpleUploadedFile
 
-        image = Image.open(StringIO(self.image.read()))
-        if image.mode not in ('L', 'RGB'):
-            image = image.convert('RGB')
-
-        #image_copy = image.copy()
-
-        thumbnail_small = image.resize(settings.THUMBNAILS_SMALL_SIZE, Image.ANTIALIAS)
-        thumbnail_large = image.resize(settings.THUMBNAILS_LARGE_SIZE, Image.ANTIALIAS)
-
         thumbnails = (
-            ('small', thumbnail_small, self.thumbnail_small),
-            ('large', thumbnail_large, self.thumbnail_large)
+            ('small', settings.THUMBNAILS_SMALL_SIZE, self.thumbnail_small),
+            ('large', settings.THUMBNAILS_LARGE_SIZE, self.thumbnail_large)
         )
 
-        for thumbnail_suffix, thumbnail_image, thumbnail in thumbnails:
+        for thumbnail_suffix, thumbnail_size, thumbnail in thumbnails:
+            image = Image.open(StringIO(self.image.read()))
+            self.image.seek(0)
+
+            if image.mode not in ('L', 'RGB'):
+                image = image.convert('RGB')
+
+            image.thumbnail(thumbnail_size, Image.ANTIALIAS)
+
             handler = StringIO()
-            thumbnail_image.save(handler, 'png')
+            image.save(handler, 'png')
             handler.seek(0)
 
             suf = SimpleUploadedFile(

@@ -14,5 +14,8 @@ urlpatterns = patterns('',
     url(r'^(?P<owner_id>\d+)/gallery_(?P<gallery_id>\d+)/photo_(?P<photo_id>\d+)/edit/$', 'gallery.views.photo_edit', name='photo_edit'),
     url(r'^(?P<owner_id>\d+)/gallery_(?P<gallery_id>\d+)/photo_(?P<photo_id>\d+)/delete/$', 'gallery.views.object_delete', name='object_delete'),
 
+    url(r'^(?P<owner_id>\d+)/gallery_(?P<gallery_id>\d+)/photo_(?P<photo_id>\d+)/comment_(?P<comment_id>\d+)/delete/$', 'gallery.views.comment_delete', name='comment_delete'),
+
+    url(r'^comments/posted/$', 'gallery.views.comment_posted', name='comment_posted'),
     url(r'^comments/', include('django.contrib.comments.urls')),
 )

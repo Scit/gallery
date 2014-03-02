@@ -24,7 +24,18 @@
     {% get_comment_count for photo as comments_count %}
     <p>Комментариев: {{ comments_count }}</p>
 
-    {% render_comment_form for photo %}
+    {% get_comment_form for photo as form %}
+    <form action="{% comment_form_target %}" method="post" >
+        {% csrf_token %}
+        {{ form.comment }}
+        {{ form.content_type }}
+        {{ form.object_pk }}
+        {{ form.timestamp }}
+        {{ form.security_hash }}
+        <input id="id_name" type="hidden" name="name" value="{{ user.username|default:'anonymous' }}"/>
+        <input id="id_email" type="hidden" name="email" value="{{ user.email|default:'a@a.ru' }}"/>
+        <input type="submit" value="Добавить комментарий" />
+    </form>
     {% render_comment_list for photo %}
 {% endif %}
 {% endblock %}

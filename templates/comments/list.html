@@ -1,0 +1,21 @@
+<div>
+    <div>
+        {% for comment in comment_list %}
+        <ul>
+            <li>
+            {% if comment.user %}
+                <p>{{ comment.user }}</p>
+            {% else %}
+                <p>Аноним</p>
+            {% endif %}
+
+            <p>{{ comment.comment }}</p>
+
+            {% if request.owner %}
+                <a href="{% url 'comment_delete' request.user.pk comment.content_object.gallery.pk comment.object_pk comment.pk %}">Удалить</a>
+            {% endif %}
+            </li>
+        </ul>
+        {% endfor %}
+    </div>
+</div>

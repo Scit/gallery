@@ -5,7 +5,7 @@ from django.core.urlresolvers import reverse
 from django.shortcuts import render, get_object_or_404
 from django.http import Http404, HttpResponse, HttpResponseRedirect
 from django.contrib.auth.models import User
-from django.contrib import messages
+from django.contrib import messages, comments
 from django.conf import settings
 from gallery.models import Gallery, Photo
 from gallery.forms import GalleryForm, PhotoForm
@@ -133,3 +133,29 @@ def object_delete(request, *args, **kwargs):
 
     else:
         return render(request, 'gallery/object_delete.html')
+
+
+@ownership_required
+def comment_delete(request, *args, **kwargs):
+    owner_id = kwargs.get('owner_id', None)
+    gallery_id = kwargs.get('gallery_id', None)
+    photo_id = kwargs.get('photo_id', None)
+    comment_id = kwargs.get('comment_id', None)
+
+    if comment_id:
+        comment = get_object_or_404(comments.get_model(), pk=comment_id)
+        comment.is_removed = True
+        comment.save()
+
+        return HttpResponseRedirect(reverse('photo', args=(owner_id, gallery_id, photo_id)))
+
+
+def comment_posted(request):
+    comment_id = request.GET.get('c', None)
+    comment = get_object_or_404(comments.get_model(), pk=comment_id)
+
+    owner_id = comment.content_object.gallery.owner.pk
+    gallery_id = comment.content_object.gallery.pk
+    photo_id = comment.content_object.pk
+
+    return HttpResponseRedirect(reverse('photo', args=(owner_id, gallery_id, photo_id)))
