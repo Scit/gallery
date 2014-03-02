@@ -6,6 +6,7 @@
         {% for gallery in objects %}
         <li>
         <a href="{% url 'gallery' gallery.owner.pk gallery.id %}">{{ gallery.title }}</a>
+        {{ gallery.creation_date }}
         </li>
         {% endfor %}
     </ul>
