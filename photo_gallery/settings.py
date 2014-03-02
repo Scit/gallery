@@ -44,7 +44,7 @@ ROOT_URL = '/'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'uploads')
 MEDIA_URL = '/media/'
 
-LOGIN_REDIRECT_URL = ROOT_URL
+LOGIN_REDIRECT_URL = 'profile/'
 
 ALLOWED_HOSTS = []
 

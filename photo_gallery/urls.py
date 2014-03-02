@@ -16,4 +16,5 @@ urlpatterns = patterns('',
     url(r'^login/$', 'django.contrib.auth.views.login', name='login'),
     url(r'^logout/$', 'django.contrib.auth.views.logout', {'next_page': '/'}, name='logout'),
     url(r'^register/$', 'photo_gallery.views.register', name='register'),
+    url(settings.LOGIN_REDIRECT_URL, 'photo_gallery.views.logged_in', name='logged_in'),
 ) + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

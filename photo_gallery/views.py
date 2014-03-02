@@ -22,5 +22,8 @@ def register(request):
     else:
         form = UserCreationForm()
 
-    return render(request, 'registration/register.html',
-            {'form': form})
+    return render(request, 'registration/register.html', {'form': form})
+
+
+def logged_in(request):
+    return HttpResponseRedirect(reverse('owner', args=(request.user.pk,)))
