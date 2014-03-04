@@ -2,20 +2,22 @@
 
 {% block content %}
 {% if objects %}
-    <ul>
+        <div class="list-group">
         {% for gallery in objects %}
-        <li>
-        <a href="{% url 'gallery' gallery.owner.pk gallery.id %}">{{ gallery.title }}</a>
-        {{ gallery.owner.username }}
-        {{ gallery.creation_date }}
-        </li>
+        <a class="list-group-item" href="{% url 'gallery' gallery.owner.pk gallery.id %}">
+        <div class="row">
+            <div class="col-md-3"><h4>{{ gallery.title }}</h4></div>
+            <div class="col-md-6"><h4>{{ gallery.owner.username }}</h4></div>
+            <div class="col-md-3"><h4>{{ gallery.creation_date }}</h4></div>
+        </div>
+        </a>
         {% endfor %}
-    </ul>
+        </div>
 {% endif %}
 {% endblock %}
 
 {% block edit_panel %}
 {% if request.owner %}
-<a href="{% url 'gallery_edit' request.user.pk %}">Создать галерею</a>
+<a class="btn btn-default" href="{% url 'gallery_edit' request.user.pk %}">Создать галерею</a>
 {% endif %}
 {% endblock %}

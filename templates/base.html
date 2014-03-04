@@ -2,21 +2,35 @@
 <html>
     <head>
         <title>{% block title %}{% endblock %}</title>
+
+        {% load staticfiles %}
+        <link href="{% static 'bootstrap/css/bootstrap.min.css' %}" rel="stylesheet">
+
+        {% block extra_css %}{% endblock %}
     </head>
 
     <body>
+        <script src="{% static 'jquery/jquery-1.11.0.min.js' %}"></script>
+
+    <div class="navbar navbar-inverse" role="navigation">
+    <div class="container">
     <!-- header -->
     {% block login %} 
-        <a href="{{ request.parent_path }}">Назад</a>
+        <a type="button" class="btn btn-default" href="{{ request.parent_path }}">Назад</a>
+        <div class="btn-group pull-right">
         {% if user.is_anonymous %}
-            <a data-role="button" href="{% url 'login' %}">Войти</a>
-            <a data-role="button" href="{% url 'register' %}">Зарегистрироваться</a>
+                <a type="button" class="btn btn-default" href="{% url 'login' %}">Войти</a>
+                <a type="button" class="btn btn-default" href="{% url 'register' %}">Зарегистрироваться</a>
         {% else %}
-        <a href="{% url 'owner' request.user.pk %}">{{ user.username }}</a>
-            <a data-role="button" href="{% url 'logout' %}">Выйти</a>
+            <a class="btn btn-default" href="{% url 'owner' request.user.pk %}">{{ user.username }}</a>
+            <a class="btn btn-default" href="{% url 'logout' %}">Выйти</a>
         {% endif %}
+        </div>
     {% endblock %}
     <!-- end header -->
+        </div>
+        </div>
+        </div>
 
     <!-- messages -->
     {% if messages %}
@@ -28,9 +42,21 @@
     {% endif %}
     <!-- end messages -->
 
+    <div class="container">
     {% block content %}{% endblock %}
+    </div>
+
+    <div class="container">
     {% block pagination %}{% endblock %}
+    </div>
+
+    <div class="container">
     {% block edit_panel %}{% endblock %}
+    </div>
+
+    <div class="container">
     {% block comments %}{% endblock %}
+    </div>
+
     </body>
 </html>

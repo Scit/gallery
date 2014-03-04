@@ -1,15 +1,15 @@
 {% extends 'base.html' %}
 
 {% block pagination %}
-    <div>
-        <span>
+    <div class="panel panel-default">
+        <ul class="pager">
             {% if objects.has_previous %}
-                <a href="?page={{ objects.previous_page_number }}">Предыдущая</a>
+                <li><a href="?page={{ objects.previous_page_number }}">Предыдущая</a></li>
             {% endif %}
-                <span>Страница {{ objects.number }} из {{ objects.paginator.num_pages }}</span>
+                <li>Страница {{ objects.number }} из {{ objects.paginator.num_pages }}</li>
             {% if objects.has_next %}
-                <a href="?page={{ objects.next_page_number }}">Следующая</a>
+                <li><a href="?page={{ objects.next_page_number }}">Следующая</a></li>
             {% endif %}
-        </span>
+        </ul>
     </div>
 {% endblock %}

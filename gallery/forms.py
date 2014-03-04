@@ -12,7 +12,7 @@ class GalleryForm(ModelForm):
     def clean(self):
         cleaned_data = self.cleaned_data
         try:
-            Gallery.objects.get(owner=self.instance.owner, title=cleaned_data['title'])
+            Gallery.objects.get(owner=self.instance.owner, title=cleaned_data.get('title', None))
         except Gallery.DoesNotExist:
             pass
         else:

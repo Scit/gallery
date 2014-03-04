@@ -2,22 +2,24 @@
 
 {% block content %}
 {% if objects %}
-    <ul>
+    <div class="panel panel-default container-fluid">
+    <div class="row">
         {% for photo in objects %}
-        <li>
-        {{ photo.title }}
-        <a href="{% url 'photo' photo.gallery.owner.pk photo.gallery.pk photo.pk %}">
-        <img src="{{MEDIA_URL}}{{ photo.thumbnail_small }}" alt="">
-        </a>
-        </li>
+        <div class="col-xs-2">
+            <p><h5>{{ photo.title }}</h5></p>
+            <a href="{% url 'photo' photo.gallery.owner.pk photo.gallery.pk photo.pk %}">
+            <img class="img-rounded" src="{{MEDIA_URL}}{{ photo.thumbnail_small }}" alt="">
+            </a>
+        </div>
         {% endfor %}
-    </ul>
+    </div>
+    </div>
 {% endif %}
 {% endblock %}
 
 {% block edit_panel %}
 {% if request.owner %}
-<a href="{% url 'photo_add' request.user.pk gallery_id %}">Добавить фотографию</a>
-<a href="{% url 'object_delete' request.user.pk gallery_id %}">Удалить галерею</a>
+<a class="btn btn-default" href="{% url 'photo_add' request.user.pk gallery_id %}">Добавить фотографию</a>
+<a class="btn btn-default" href="{% url 'object_delete' request.user.pk gallery_id %}">Удалить галерею</a>
 {% endif %}
 {% endblock %}

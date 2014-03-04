@@ -4,25 +4,26 @@
 
 {% block content %}
 {% if photo %}
-    <p>{{ photo.title }}</p>
+    <h3>{{ photo.title }}</h3>
     <a href="{{ MEDIA_URL }}{{ photo.image }}">
         <img src="{{ MEDIA_URL }}{{ photo.thumbnail_large }}"></img>
     </a>
-    <p>{{ photo.description }}</p>
+    <h4>{{ photo.description }}</h4>
 {% endif %}
 {% endblock %}
 
 {% block edit_panel %}
 {% if request.owner %}
-<a href="{% url 'photo_edit' request.user.pk photo.gallery.pk photo.pk %}">Редактировать описание</a>
-<a href="{% url 'object_delete' request.user.pk photo.gallery.pk photo.pk %}">Удалить</a>
+<a class="btn btn-default" href="{% url 'photo_edit' request.user.pk photo.gallery.pk photo.pk %}">Редактировать описание</a>
+<a class="btn btn-default" href="{% url 'object_delete' request.user.pk photo.gallery.pk photo.pk %}">Удалить</a>
 {% endif %}
 {% endblock %}
 
 {% block comments %}
 {% if photo %}
     {% get_comment_count for photo as comments_count %}
-    <p>Комментариев: {{ comments_count }}</p>
+
+    <h4>Комментариев: <span class="badge">{{ comments_count }}</span></h4>
 
     {% get_comment_form for photo as form %}
     <form action="{% comment_form_target %}" method="post" >
@@ -34,8 +35,11 @@
         {{ form.security_hash }}
         <input id="id_name" type="hidden" name="name" value="{{ user.username|default:'anonymous' }}"/>
         <input id="id_email" type="hidden" name="email" value="{{ user.email|default:'a@a.ru' }}"/>
-        <input type="submit" value="Добавить комментарий" />
+
+        <br/>
+        <input class="btn btn-default" type="submit" value="Добавить комментарий" />
     </form>
+    <br/>
     {% render_comment_list for photo %}
 {% endif %}
 {% endblock %}

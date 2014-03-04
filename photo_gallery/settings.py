@@ -115,8 +115,12 @@ USE_TZ = True
 
 STATIC_URL = '/static/'
 
-GALLERIES_ON_PAGE = 2
-PHOTOS_ON_PAGE = 4
+STATICFILES_DIRS = (
+    os.path.join(BASE_DIR, 'static'),
+)
+
+GALLERIES_ON_PAGE = 5
+PHOTOS_ON_PAGE = 10
 
 PHOTOS_MEDIA_ROOT = 'photos'
 THUMBNAILS_MEDIA_ROOT = 'thumbnails'

@@ -1,13 +1,10 @@
 <div>
     <div>
         {% for comment in comment_list %}
-        <ul>
-            <li>
-            {% if comment.user %}
-                <p>{{ comment.user }}</p>
-            {% else %}
-                <p>Аноним</p>
-            {% endif %}
+        <ul class="list-group">
+            <li class="list-group-item">
+            <b>{{ comment.user|default:'Аноним' }}</b> 
+            <p class="text-right">{{ comment.submit_date }}</p>
 
             <p>{{ comment.comment }}</p>
 
