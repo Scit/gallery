@@ -2,19 +2,11 @@
 
 {% block extra_css %}
 {% load staticfiles %}
-<link href="{% static 'login.css' %}" rel="stylesheet">
+<link href="{% static 'extra.css' %}" rel="stylesheet">
 {% endblock %}
 
 {% block content %}
     {% if form.errors %}
-        {% for field in form %}
-            {% for error in field.errors %}
-                <div class="alert alert-error center">
-                    <strong>{{ error|escape }}</strong>
-                    {{ field.label_tag }}
-                </div>
-            {% endfor %}
-        {% endfor %}
         {% for error in form.non_field_errors %}
             <div class="alert alert-error center">
                 <strong>{{ error|escape }}</strong>
@@ -25,6 +17,7 @@
 <form class="form-signin" role="form" method="post" action="">
     <h2 class="form-signin-heading">Создать галерею</h2>
     {% csrf_token %}
+    {% for error in form.title.errors %}{{ error }}{% endfor %}
     <input type="text" class="form-control" placeholder="Название" name="{{ form.title.html_name }}" value="{{ form.title.value|default:'' }}" />
     <input class="btn btn-default" type="submit" value="Сохранить" />
 </form>

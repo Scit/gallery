@@ -2,7 +2,7 @@
 
 {% block extra_css %}
 {% load staticfiles %}
-<link href="{% static 'login.css' %}" rel="stylesheet">
+<link href="{% static 'extra.css' %}" rel="stylesheet">
 {% endblock %}
 
 {% block content %}
@@ -19,13 +19,6 @@
 {% endif %}
 
     {% if form.errors %}
-        {% for field in form %}
-            {% for error in field.errors %}
-                <div class="alert alert-error center">
-                    <strong>{{ error|escape }}</strong>
-                </div>
-            {% endfor %}
-        {% endfor %}
         {% for error in form.non_field_errors %}
             <div class="alert alert-error center">
                 <strong>{{ error|escape }}</strong>
@@ -35,9 +28,12 @@
 
 <form class="form-signin left" fole="form" method="post" action="" enctype="multipart/form-data">
     {% csrf_token %}
+    {% for error in form.title.errors %}{{ error }}{% endfor %}
     <input type="text" class="form-control" name="{{ form.title.html_name }}" value="{{ form.title.value }}" placeholder="Заголовок" />
+    {% for error in form.description.errors %}{{ error }}{% endfor %}
     <input type="text" class="form-control" name="{{ form.description.html_name }}" value="{{ form.description.value }}" placeholder="Описание" />
     {% if not edit %}
+    {% for error in form.image.errors %}{{ error }}{% endfor %}
     <input type="file" class="form-control" name="{{ form.image.html_name }}" value="{{ form.image.value }}" />
     {% endif %}
 
