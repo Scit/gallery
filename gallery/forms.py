@@ -17,7 +17,7 @@ class GalleryForm(ModelForm):
             pass
         else:
             raise ValidationError('Галерея с таким названием уже имеется в вашем альбоме')
-        
+
         return cleaned_data
 
 
