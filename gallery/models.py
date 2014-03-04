@@ -20,7 +20,7 @@ class Gallery(models.Model):
 
 
 class Photo(models.Model):
-    image = models.ImageField(upload_to=get_photos_path)
+    image = models.ImageField(upload_to=get_photos_path, verbose_name="Фотография")
     thumbnail_large = models.ImageField(upload_to=get_thumbnails_path, editable=False)
     thumbnail_small = models.ImageField(upload_to=get_thumbnails_path, editable=False)
 
